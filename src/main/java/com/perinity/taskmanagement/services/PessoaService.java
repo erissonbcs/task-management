@@ -2,6 +2,7 @@ package com.perinity.taskmanagement.services;
 
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.perinity.taskmanagement.dto.PessoaDTO;
@@ -10,6 +11,7 @@ import com.perinity.taskmanagement.entities.Pessoa;
 import com.perinity.taskmanagement.repositories.DepartamentoRepository;
 import com.perinity.taskmanagement.repositories.PessoaRepository;
 import com.perinity.taskmanagement.services.exceptions.EntityNotFoundException;
+import com.perinity.taskmanagement.utils.GenericReturn;
 
 @Service
 public class PessoaService {
@@ -49,10 +51,12 @@ public class PessoaService {
 		return obj.orElseThrow(() -> new EntityNotFoundException("Pessoa informada não foi encontrada."));
     }
     
-    public String deletar(Long id) {
+    public GenericReturn deletar(Long id) {
     	Pessoa pessoa = buscarPessoaPorId(id);
     	pessoaRepository.delete(pessoa);
     	
-    	return "Pessoa deletada com sucesso!";	
+    	GenericReturn genericReturn = new GenericReturn(HttpStatus.OK.value(), "Pessoa deletada com sucesso!", pessoa);
+    	
+    	return genericReturn;	
     }
 }

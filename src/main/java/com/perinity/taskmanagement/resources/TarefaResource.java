@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.perinity.taskmanagement.dto.TarefaDTO;
 import com.perinity.taskmanagement.entities.Tarefa;
 import com.perinity.taskmanagement.services.TarefaService;
+import com.perinity.taskmanagement.utils.GenericReturn;
 
 @RestController
 @RequestMapping(value = "/tarefas")
@@ -30,9 +31,16 @@ public class TarefaResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@PutMapping(value = "/alocar/{id}")
-	public ResponseEntity<Tarefa> alocarPessoa(@PathVariable Long id) {
-		Tarefa obj = tarefaService.alocar(id);
+	@PutMapping(value = "/alocar/{id}/idpessoa/{idPessoa}")
+	public ResponseEntity<GenericReturn> alocarPessoa(@PathVariable Long id, @PathVariable Long idPessoa) {
+		GenericReturn obj = tarefaService.alocar(id, idPessoa);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	@PutMapping(value = "/finalizar/{id}")
+	public ResponseEntity<GenericReturn> alocarPessoa(@PathVariable Long id) {
+		GenericReturn obj = tarefaService.finalizar(id);
+		return ResponseEntity.ok().body(obj);
+	}
+	
 }

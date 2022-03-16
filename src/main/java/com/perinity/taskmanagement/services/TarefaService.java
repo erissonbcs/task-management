@@ -2,6 +2,7 @@ package com.perinity.taskmanagement.services;
 
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.perinity.taskmanagement.dto.TarefaDTO;
@@ -12,6 +13,7 @@ import com.perinity.taskmanagement.repositories.DepartamentoRepository;
 import com.perinity.taskmanagement.repositories.PessoaRepository;
 import com.perinity.taskmanagement.repositories.TarefaRepository;
 import com.perinity.taskmanagement.services.exceptions.EntityNotFoundException;
+import com.perinity.taskmanagement.utils.GenericReturn;
 
 @Service
 public class TarefaService {
@@ -40,9 +42,50 @@ public class TarefaService {
 		return tarefaRepository.save(tarefa);
 	}
 	
-	public Tarefa alocar(Long id) {
+	public GenericReturn alocar(Long id, Long idPessoa) {
+		GenericReturn genericReturn;
+		
 		Tarefa tarefa = buscarTarefaPorId(id);
-		return tarefa;
+		if(tarefa.getPessoa() != null) {
+			Pessoa pessoa = buscarPessoaPorId(tarefa.getPessoa().getId());
+			String msg = "Esta tarefa já está alocada para "+pessoa.getNome();
+			genericReturn = new GenericReturn(HttpStatus.OK.value(), msg, tarefa);
+			return genericReturn;
+		}
+		
+		Pessoa pessoa = buscarPessoaPorId(idPessoa);
+		if(pessoa.getDepartamento().getId() != tarefa.getDepartamento().getId()) {
+			String msg = "A tarefa só pode ser alocado para uma pessoa que tenha o mesmo departamento.";
+			genericReturn = new GenericReturn(HttpStatus.OK.value(), msg, tarefa);
+			return genericReturn;
+		}
+		
+		tarefa.setPessoa(pessoa);
+		
+		tarefaRepository.save(tarefa);
+		String msg = "Tarefa alocada para "+pessoa.getNome();
+		genericReturn = new GenericReturn(HttpStatus.OK.value(), msg, tarefa);
+		
+		return genericReturn;
+	}
+	
+	public GenericReturn finalizar(Long id) {
+		GenericReturn genericReturn;
+		
+		Tarefa tarefa = buscarTarefaPorId(id);
+		if(tarefa.isFinalizada()) {
+			String msg = "Esta tarefa já esta finalizada.";
+			genericReturn = new GenericReturn(HttpStatus.OK.value(), msg, tarefa);
+			return genericReturn;
+		}
+		
+		tarefa.setFinalizada(true);
+		
+		tarefaRepository.save(tarefa);
+		String msg = "Tarefa finalizada.";
+		genericReturn = new GenericReturn(HttpStatus.OK.value(), msg, tarefa);
+		
+		return genericReturn;
 	}
 
 	private Departamento buscarDepartamentoPorId(Long id) {

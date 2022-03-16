@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ManyToAny;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tarefas")
@@ -35,6 +35,7 @@ public class Tarefa implements Serializable{
 	
 	private int duracao;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_pessoa")
 	private Pessoa pessoa;

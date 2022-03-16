@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.perinity.taskmanagement.dto.PessoaDTO;
 import com.perinity.taskmanagement.entities.Pessoa;
 import com.perinity.taskmanagement.services.PessoaService;
+import com.perinity.taskmanagement.utils.GenericReturn;
 
 @RestController
 @RequestMapping(value = "/pessoas")
@@ -38,9 +39,9 @@ public class PessoaResource {
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<String> deletarPessoa(@PathVariable Long id){
-		String msg = pessoaService.deletar(id);
-		return ResponseEntity.ok().body(msg);
+	public ResponseEntity<GenericReturn> deletarPessoa(@PathVariable Long id){
+		GenericReturn obj = pessoaService.deletar(id);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 }
