@@ -1,16 +1,23 @@
-package com.perinity.taskmanagement.model;
+package com.perinity.taskmanagement.entities;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "pessoas")
-public class Pessoa {
+public class Pessoa implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,17 +26,15 @@ public class Pessoa {
 	@OneToOne
 	@JoinColumn(name="id_departamento")
 	private Departamento departamento;
-	//private List<Tarefa> tarefas;
+	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Tarefa> tarefas;
 	
 	public Pessoa() { }
 
-//	public Pessoa(Long id, String nome, Departamento departamento, List<Tarefa> tarefas) {
-//		super();
-//		this.id = id;
-//		this.nome = nome;
-//		this.departamento = departamento;
-//		this.tarefas = tarefas;
-//	}
+	public Pessoa(String nome, Departamento departamento) {
+		this.nome = nome;
+		this.departamento = departamento;
+	}
 
 	public Long getId() {
 		return id;
@@ -55,13 +60,13 @@ public class Pessoa {
 		this.departamento = departamento;
 	}
 
-//	public List<Tarefa> getTarefas() {
-//		return tarefas;
-//	}
-//
-//	public void setTarefas(List<Tarefa> tarefas) {
-//		this.tarefas = tarefas;
-//	}
+	public List<Tarefa> getTarefas() {
+		return tarefas;
+	}
+
+	public void setTarefas(List<Tarefa> tarefas) {
+		this.tarefas = tarefas;
+	}
 	
 
 }

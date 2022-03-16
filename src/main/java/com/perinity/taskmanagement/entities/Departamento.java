@@ -1,4 +1,4 @@
-package com.perinity.taskmanagement.model;
+package com.perinity.taskmanagement.entities;
 
 import java.io.Serializable;
 
@@ -18,16 +18,12 @@ public class Departamento implements Serializable {
 	private Long id;
 	private String titulo;
 
-	public Departamento() {
-		
+	public Departamento() {}
+	
+	public Departamento(Long id) {
+		this.id = id;
 	}
 	
-	public Departamento(Long id, String titulo) {
-		super();
-		this.id = id;
-		this.titulo = titulo;
-	}
-
 	public Long getId() {
 		return id;
 	}
