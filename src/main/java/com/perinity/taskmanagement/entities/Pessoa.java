@@ -22,10 +22,13 @@ public class Pessoa implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String nome;
+	
 	@OneToOne
 	@JoinColumn(name="id_departamento")
 	private Departamento departamento;
+	
 	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Tarefa> tarefas;
 	

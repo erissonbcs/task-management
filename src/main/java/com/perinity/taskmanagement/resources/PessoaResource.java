@@ -38,7 +38,7 @@ public class PessoaResource {
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<String> alterarPessoa(@PathVariable Long id){
+	public ResponseEntity<String> deletarPessoa(@PathVariable Long id){
 		String msg = pessoaService.deletar(id);
 		return ResponseEntity.ok().body(msg);
 	}

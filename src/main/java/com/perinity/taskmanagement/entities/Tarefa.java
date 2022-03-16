@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ManyToAny;
 
 @Entity
 @Table(name = "tarefas")
@@ -21,31 +22,26 @@ public class Tarefa implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String titulo;
+	
 	private String descricao;
+	
 	private Date prazo;
+	
 	@OneToOne
 	@JoinColumn(name="id_departamento")
 	private Departamento departamento;
+	
 	private int duracao;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_pessoa", nullable = false)
+	
+	@ManyToOne
+	@JoinColumn(name="id_pessoa")
 	private Pessoa pessoa;
+    
 	private boolean finalizada;
 	
 	public Tarefa() { }
-	
-	public Tarefa(Long id, String titulo, String descricao, Date prazo, Departamento departamento, int duracao,
-			Pessoa pessoa, boolean finalizada) {
-		this.id = id;
-		this.titulo = titulo;
-		this.descricao = descricao;
-		this.prazo = prazo;
-		this.departamento = departamento;
-		this.duracao = duracao;
-		this.pessoa = pessoa;
-		this.finalizada = finalizada;
-	}
 
 	public Long getId() {
 		return id;
