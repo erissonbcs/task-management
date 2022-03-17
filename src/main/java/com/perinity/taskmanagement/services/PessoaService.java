@@ -86,7 +86,7 @@ public class PessoaService {
     		
     	if(tarefas.size() > 0) {
     		for(Tarefa tarefa: tarefas) {
-    			totalHoras += (tarefa.getDuracao() * 8);
+    			totalHoras += tarefa.getDuracao();
     		}
     	}
     	
