@@ -52,4 +52,5 @@ public class TarefaResource {
 		return ResponseEntity.ok().body(lista);
 	}
 	
+	
 }

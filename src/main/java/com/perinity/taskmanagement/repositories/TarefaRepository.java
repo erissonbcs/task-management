@@ -14,4 +14,5 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Long>{
 	
 	@Query(value ="select t.* from tarefas t where t.id_departamento = ?", nativeQuery = true)
 	List<Tarefa> findByIdDepartamento(Long id);
+	
 }

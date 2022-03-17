@@ -60,4 +60,5 @@ public class PessoaResource {
 		List<RelatorioMediaHorasGasta> relatorio = pessoaService.buscar(relatorioMediaHorasGasta);
 		return ResponseEntity.ok().body(relatorio);
 	}
+	
 }
