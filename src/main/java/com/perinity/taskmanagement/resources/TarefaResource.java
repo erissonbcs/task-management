@@ -1,8 +1,11 @@
 package com.perinity.taskmanagement.resources;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -41,6 +44,12 @@ public class TarefaResource {
 	public ResponseEntity<GenericReturn> alocarPessoa(@PathVariable Long id) {
 		GenericReturn obj = tarefaService.finalizar(id);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping(value = "/pendentes")
+	public ResponseEntity<List<Tarefa>> listarTarefasPendentes() {
+		List<Tarefa> lista = tarefaService.listarTarefasPendentes();
+		return ResponseEntity.ok().body(lista);
 	}
 	
 }

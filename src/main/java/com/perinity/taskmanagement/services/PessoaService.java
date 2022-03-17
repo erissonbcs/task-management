@@ -15,7 +15,6 @@ import com.perinity.taskmanagement.reports.RelatorioHorasGasta;
 import com.perinity.taskmanagement.reports.RelatorioMediaHorasGasta;
 import com.perinity.taskmanagement.repositories.DepartamentoRepository;
 import com.perinity.taskmanagement.repositories.PessoaRepository;
-import com.perinity.taskmanagement.repositories.TarefaRepository;
 import com.perinity.taskmanagement.services.exceptions.EntityNotFoundException;
 import com.perinity.taskmanagement.utils.GenericReturn;
 

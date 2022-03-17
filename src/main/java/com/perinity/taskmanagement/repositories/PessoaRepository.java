@@ -14,5 +14,8 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 	@Query(value ="select p.* from pessoas p, tarefas t where p.id = t.id_pessoa and  p.nome = ? and  to_char(t.prazo, 'yyyy-mm-dd') BETWEEN ? and ?", nativeQuery = true)
 	List<Pessoa> findByNomeAndDataInicioAfterAndDataFimBefore(String nome, Date DataInicio, Date DataFim);
 	
+	@Query(value ="select p.* from pessoas p where p.id_departamento = ?", nativeQuery = true)
+	List<Pessoa> findByIdDepartamento(Long id);
+	
 
 }

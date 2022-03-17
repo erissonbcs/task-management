@@ -1,5 +1,6 @@
 package com.perinity.taskmanagement.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -86,6 +87,12 @@ public class TarefaService {
 		genericReturn = new GenericReturn(HttpStatus.OK.value(), msg, tarefa);
 		
 		return genericReturn;
+	}
+	
+	
+	public List<Tarefa> listarTarefasPendentes(){
+		List<Tarefa> lista = tarefaRepository.findByTarefasAtrasadas();
+		return lista;
 	}
 
 	private Departamento buscarDepartamentoPorId(Long id) {
