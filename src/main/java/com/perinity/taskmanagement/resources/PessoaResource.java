@@ -1,9 +1,12 @@
 package com.perinity.taskmanagement.resources;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.perinity.taskmanagement.dto.PessoaDTO;
 import com.perinity.taskmanagement.entities.Pessoa;
+import com.perinity.taskmanagement.reports.RelatorioHorasGasta;
+import com.perinity.taskmanagement.reports.RelatorioMediaHorasGasta;
 import com.perinity.taskmanagement.services.PessoaService;
 import com.perinity.taskmanagement.utils.GenericReturn;
 
@@ -44,4 +49,15 @@ public class PessoaResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@GetMapping
+	public ResponseEntity<List<RelatorioHorasGasta>> listarPessoas(){
+		List<RelatorioHorasGasta> relatorio = pessoaService.listar();
+		return ResponseEntity.ok().body(relatorio);
+	}
+	
+	@GetMapping(value = "/gastos")
+	public ResponseEntity<List<RelatorioMediaHorasGasta>> buscarPessoas(@RequestBody RelatorioMediaHorasGasta relatorioMediaHorasGasta){
+		List<RelatorioMediaHorasGasta> relatorio = pessoaService.buscar(relatorioMediaHorasGasta);
+		return ResponseEntity.ok().body(relatorio);
+	}
 }
